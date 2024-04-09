@@ -33,7 +33,7 @@ function App() {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-            <HomePage />
+            <HomePage user={user} />
           </>
         ) : (
           <>

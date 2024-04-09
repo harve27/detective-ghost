@@ -4,7 +4,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase'
 
 
-export default function HomePage() {
+export default function HomePage({ user }) {
     const [bets, setBets] = useState([]);
     useEffect(() => {
         const fetchBets = async () => {
@@ -32,6 +32,7 @@ export default function HomePage() {
                 id={bet.id}
                 question={bet.question}
                 timeLimit={bet.duration}
+                user={user}
                 />
             ))}
         </div>

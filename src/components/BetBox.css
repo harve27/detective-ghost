@@ -1,0 +1,19 @@
+/* BetBox.css */
+.bet-box {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .bet-box.bet-placed {
+    border-color: black;
+  }
+  
+  .app {
+    background: linear-gradient(to bottom, #FF7E7E, #FF0000); /* Red gradient background */
+    padding: 20px;
+  }
+  

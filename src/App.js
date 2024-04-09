@@ -1,41 +1,41 @@
-import './App.css';
-import React, { useState, useEffect } from 'react'
-import BetBox from './components/BetBox';
-import { db } from './firebase'
-import { collection, getDocs } from 'firebase/firestore/lite';
+import React, { useState } from 'react'
+import { Container, Dropdown } from 'react-bootstrap';
+import HomePage from './components/HomePage';
+import SignUp from './components/SignUp'
+import Login from './components/Login';
 
 function App() {
-  const [bets, setBets] = useState([]);
+  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const fetchBets = async () => {
-      try {
-        const betsRef = collection(db, 'betBox');
-        const betsSnapshot = await getDocs(betsRef) 
-        const betsList = betsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setBets(betsList)
-      } catch (error) {
-        console.error('Error fetching bets:', error);
-      }
-    };
-
-    fetchBets();
-
-    return () => {}; // No cleanup needed
-  }, []);
+  function handleLogout() {
+    
+  }
 
   return (
-    <div className="App">
-      {/** Don't show bet if it isn't active */}
-      {bets.map(bet => (
-        <BetBox
-          key={bet.id}
-          id={bet.id}
-          question={bet.question}
-          timeLimit={bet.duration}
-        />
-      ))}
-    </div>
+    <Container style={{ minHeight: '100vh', padding: '20px' }}>
+      <div className="App" style={{ background: 'linear-gradient(to bottom, #ff7f7f, #ff3333)', minHeight: '100vh', padding: '20px' }}>
+        {user ? <>
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              Menu
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item href="/profile">Profile</Dropdown.Item>
+              <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <HomePage />
+        </> : (
+          <>
+            <SignUp setUser={setUser} />
+            <br />
+            <Login setUser={setUser} />
+          </>
+        )}
+      </div>
+    </Container>
+
   );
 }
 

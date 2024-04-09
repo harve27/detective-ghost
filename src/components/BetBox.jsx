@@ -13,7 +13,7 @@ const BetBox = ({ id, question, timeLimit }) => {
         yes: increment(1)
       });
       setBetPlaced(true);
-    } catch (error) {
+    } catch (error  ) {
       console.error("Error updating document:", error);
     }
   };
@@ -31,41 +31,29 @@ const BetBox = ({ id, question, timeLimit }) => {
   };
 
   return (
-    <Container className="bet-box" style={{ backgroundColor: '#cce5ff', border: '2px solid #007bff', padding: '20px', borderRadius: '10px' }}>
+    <Container className="bet-box" style={{ backgroundColor: 'white', border: '2px solid black', padding: '20px', borderRadius: '10px', boxShadow: '0 12px 12px rgba(0,0,0,0.1)', marginBottom: '20px' }}>
       <Row>
-        <Col xs={12}>
-          <h2 style={{ textAlign: 'left' }}>{question}</h2>
+        <Col xs={6}>
+          <div style={{ textAlign: 'left' }}>
+            <h2>{question}</h2>
+            <p>Bet ends: {timeLimit}</p>
+          </div>
         </Col>
-      </Row>
-      <Row>
-        <Col xs={12}>
-          <p style={{ textAlign: 'left' }}>Bet ends: {timeLimit}</p>
-        </Col>
-      </Row>
-      {!betPlaced ? (
-        <>
-          <Row>
-            <Col xs={12} style={{ textAlign: 'right' }}>
-              <Button variant="success" size="lg" onClick={handleYesClick} block>
+        <Col xs={6}>
+          {!betPlaced ? (
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Button variant="success" size="lg" onClick={handleYesClick} style={{ backgroundColor: 'transparent', border: '2px solid black', color: 'black', padding: '10px', width: '45%' }}>
                 Yes
               </Button>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} style={{ textAlign: 'right' }}>
-              <Button variant="danger" size="lg" onClick={handleNoClick} block>
+              <Button variant="danger" size="lg" onClick={handleNoClick} style={{ backgroundColor: 'transparent', border: '2px solid black', color: 'black', padding: '10px', width: '45%' }}>
                 No
               </Button>
-            </Col>
-          </Row>
-        </>
-      ) : (
-        <Row>
-          <Col xs={12}>
+            </div>
+          ) : (
             <p>Bet has been placed!</p>
-          </Col>
-        </Row>
-      )}
+          )}
+        </Col>
+      </Row>
     </Container>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { db } from '../firebase';
-import { doc, updateDoc, increment } from "firebase/firestore/lite";
+import { doc, updateDoc, increment } from "firebase/firestore";
 
 const BetBox = ({ id, question, timeLimit }) => {
   const [betPlaced, setBetPlaced] = useState(false);

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import BetBox from './BetBox';
-import { collection, getDocs } from 'firebase/firestore/lite';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase'
 
 

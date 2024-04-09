@@ -1,8 +1,9 @@
 // SignUp.js
 import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc, serverTimestamp } from "firebase/firestore"; 
 
 const SignUp = ({ setUser }) => {
   const [email, setEmail] = useState('');
@@ -11,9 +12,15 @@ const SignUp = ({ setUser }) => {
   const handleSignUp = async () => {
     try {
       const userSnapshot = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('User signed up successfully!');
-      console.log(userSnapshot)
       setUser(userSnapshot.user)
+
+      // Create new document in Firestore
+      await setDoc(doc(db, "users", userSnapshot.user.uid), {
+        email: userSnapshot.user.email,
+        id: userSnapshot.user.uid,
+        signupTime: serverTimestamp()
+      });
+
     } catch (error) { 
       console.error('Error signing up:', error);
     }

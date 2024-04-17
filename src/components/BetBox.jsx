@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { db } from '../firebase';
-import { doc, updateDoc, setDoc, increment, serverTimestamp, collection, query, where, getDocs } from "firebase/firestore";
+import { doc, updateDoc, setDoc, getDoc, increment, serverTimestamp, collection, query, where, getDocs } from "firebase/firestore";
+import Chart from './Chart';
 
 const BetBox = ({ id, question, timeLimit, user }) => {
   const [betPlaced, setBetPlaced] = useState(false);
+  const [surveyResponses, setSurveyResponses] = useState({}); // State to store survey responses
 
   const handleYesClick = async () => {
     try {
@@ -54,6 +56,27 @@ const BetBox = ({ id, question, timeLimit, user }) => {
 
   // Check if current bet has already been placed
   useEffect(() => {
+    const fetchSurveyResponses = async () => {
+      try {
+        // Query to fetch survey responses based on bet id
+        const betRef = doc(db, "betBox", id)
+        const betSnap = await getDoc(betRef)
+
+        console.log(betSnap.data())
+
+        // Initialize response object
+        const responses = {
+          'Yes': betSnap.data().yes,
+          'No': betSnap.data().no
+        };
+
+        // Set survey responses
+        setSurveyResponses(responses);
+      } catch (err) {
+        console.error('Error fetching survey responses:', err);
+      }
+    };
+    
     const checkBetPlaced = async () => {
       try {
         const q = query(collection(db, "users", user.uid, "bets"), where("id", "==", id))
@@ -63,7 +86,12 @@ const BetBox = ({ id, question, timeLimit, user }) => {
         console.error('Error fetching user bets:', err);
       }
     }
+
     checkBetPlaced()
+    if (betPlaced) {
+      fetchSurveyResponses()
+      console.log(surveyResponses)
+    }
     return () => {}
   }, [])
 
@@ -87,7 +115,10 @@ const BetBox = ({ id, question, timeLimit, user }) => {
               </Button>
             </div>
           ) : (
-            <p>Bet has been placed!</p>
+            <>
+              <p>Bet has been placed!</p>
+              {/* <Chart responses={surveyResponses} />*/}
+            </>
           )}
         </Col>
       </Row>

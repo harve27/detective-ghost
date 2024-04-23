@@ -1,38 +1,16 @@
-// SurveyChart.js
 import React from 'react';
-import { VictoryStack, VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
-const SurveyChart = ({ responses }) => {
-  // Convert responses to data array for VictoryStack
-  const data = Object.keys(responses).map(key => ({
-    answer: key,
-    count: responses[key]
-  })); 
-
-  // Calculate total responses
-  const totalResponses = Object.values(responses).reduce((acc, val) => acc + val, 0);
-
+const Chart = ({ yesNumber, noNumber }) => {
   return (
-    <VictoryChart
-      domainPadding={{ x: 20 }}
-      theme={VictoryTheme.material}
-    >
-      <VictoryAxis
-        dependentAxis
-        tickFormat={(t) => `${t.toFixed(0)}%`}
-        style={{ tickLabels: { fontSize: 12 } }}
-      />
-      <VictoryStack horizontal>
-        {data.map((datum, index) => (
-          <VictoryBar
-            key={index}
-            data={[{ x: datum.answer, y: (datum.count / totalResponses) * 100 }]}
-            style={{ data: { fill: datum.answer === "yes" ? "#4CAF50" : "#F44336" } }}
-          />
-        ))}
-      </VictoryStack>
-    </VictoryChart>
+    <div>
+      <ProgressBar>
+        <ProgressBar variant="success" now={yesNumber/(yesNumber+noNumber)*100} label={`${yesNumber/(yesNumber+noNumber)*100}%`} key={1} />
+        <ProgressBar variant="danger" now={noNumber/(yesNumber+noNumber)*100} label={`${noNumber/(yesNumber+noNumber)*100}%`} key={2} />
+      </ProgressBar>
+      <h5 style={{'margin-top': '10 px', 'margin-right': '20px'}}>Total bets: {yesNumber+noNumber}</h5>
+    </div>
   );
 };
 
-export default SurveyChart;
+export default Chart;

@@ -33,6 +33,8 @@ export default function HomePage({ user }) {
                 question={bet.question}
                 timeLimit={bet.duration}
                 user={user}
+                yesNumber={bet.yes}
+                noNumber={bet.no}
                 />
             ))}
         </div>

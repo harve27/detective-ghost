@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { db } from '../firebase';
 import { doc, updateDoc, setDoc, getDoc, increment, serverTimestamp, collection, query, where, getDocs } from "firebase/firestore";
-// import Chart from './Chart';
+import Chart from './Chart';
 
-const BetBox = ({ id, question, timeLimit, user }) => {
+const BetBox = ({ id, question, timeLimit, user, yesNumber, noNumber }) => {
   const [betPlaced, setBetPlaced] = useState(false);
   const [surveyResponses, setSurveyResponses] = useState({}); // State to store survey responses
 
@@ -114,7 +114,7 @@ const BetBox = ({ id, question, timeLimit, user }) => {
           ) : (
             <>
               <p>Bet has been placed!</p>
-              {/* <Chart responses={surveyResponses} />*/}
+              <Chart yesNumber={yesNumber} noNumber={noNumber}/>
             </>
           )}
         </Col>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { db } from '../firebase';
 import { doc, updateDoc, setDoc, getDoc, increment, serverTimestamp, collection, query, where, getDocs } from "firebase/firestore";
-import Chart from './Chart';
+// import Chart from './Chart';
 
 const BetBox = ({ id, question, timeLimit, user }) => {
   const [betPlaced, setBetPlaced] = useState(false);

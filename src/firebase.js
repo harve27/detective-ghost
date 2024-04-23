@@ -6,13 +6,13 @@ import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCRzlLocwlr1M8aaJU_MNddQI6lq54vHPk",
-  authDomain: "voyancedata.firebaseapp.com",
-  projectId: "voyancedata",
-  storageBucket: "voyancedata.appspot.com",
-  messagingSenderId: "717928933104",
-  appId: "1:717928933104:web:05237089e0da3e22100435",
-  measurementId: "G-RVPTVVRBBP"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 // Initialize Firebase

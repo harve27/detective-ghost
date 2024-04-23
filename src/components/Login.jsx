@@ -11,8 +11,6 @@ const Login = ({ setUser }) => {
   const handleLogin = async () => {
     try {
       const userSnapshot = await signInWithEmailAndPassword(auth, email, password);
-      console.log('User signed up successfully!');
-      console.log(userSnapshot)
       setUser(userSnapshot.user)
     } catch (error) {
       console.error('Error logging in:', error);

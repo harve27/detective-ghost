@@ -62,8 +62,6 @@ const BetBox = ({ id, question, timeLimit, user }) => {
         const betRef = doc(db, "betBox", id)
         const betSnap = await getDoc(betRef)
 
-        console.log(betSnap.data())
-
         // Initialize response object
         const responses = {
           'Yes': betSnap.data().yes,
@@ -90,7 +88,6 @@ const BetBox = ({ id, question, timeLimit, user }) => {
     checkBetPlaced()
     if (betPlaced) {
       fetchSurveyResponses()
-      console.log(surveyResponses)
     }
     return () => {}
   }, [betPlaced, id, surveyResponses, user.uid])

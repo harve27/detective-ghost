@@ -93,7 +93,7 @@ const BetBox = ({ id, question, timeLimit, user }) => {
       console.log(surveyResponses)
     }
     return () => {}
-  }, [])
+  }, [betPlaced, id, surveyResponses, user.uid])
 
   return (
     <Container className="bet-box" style={{ backgroundColor: 'white', border: '2px solid black', padding: '20px', borderRadius: '10px', boxShadow: '0 12px 12px rgba(0,0,0,0.1)', marginBottom: '20px' }}>

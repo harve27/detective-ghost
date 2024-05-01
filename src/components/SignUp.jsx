@@ -12,13 +12,14 @@ const SignUp = ({ setUser }) => {
   const handleSignUp = async () => {
     try {
       const userSnapshot = await createUserWithEmailAndPassword(auth, email, password);
-      setUser(userSnapshot.user)
+      setUser({...userSnapshot.user, points: 0})
 
       // Create new document in Firestore
       await setDoc(doc(db, "users", userSnapshot.user.uid), {
         email: userSnapshot.user.email,
         id: userSnapshot.user.uid,
-        signupTime: serverTimestamp()
+        signupTime: serverTimestamp(),
+        points: 0,
       });
 
     } catch (error) { 

@@ -31,7 +31,7 @@ export default function HomePage({ user }) {
                 key={bet.id}
                 id={bet.id}
                 question={bet.question}
-                timeLimit={bet.duration}
+                endDate={bet.closeDate}
                 user={user}
                 yesNumber={bet.yes}
                 noNumber={bet.no}

@@ -23,16 +23,20 @@ function App() {
           <>
             <div className="d-flex justify-content-between align-items-center mb-3">
               <img src={LogoImage} alt="Logo" style={{ maxWidth: '200px', height: 'auto' }} />
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  Menu
-                </Dropdown.Toggle>
+              <div>
+                <Dropdown>
+                  <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    Menu
+                  </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  {/* <Dropdown.Item href="/profile">Profile</Dropdown.Item> */}
-                  <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+                  <Dropdown.Menu>
+                    {/* <Dropdown.Item href="/profile">Profile</Dropdown.Item> */}
+                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                <p style={{'color': 'white'}}>Points: {user.points}</p>
+              </div>
+
             </div>
             <HomePage user={user} />
           </>

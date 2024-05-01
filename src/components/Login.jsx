@@ -1,7 +1,8 @@
 // Login.js
 import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
+import { doc, getDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login = ({ setUser }) => {
@@ -11,7 +12,12 @@ const Login = ({ setUser }) => {
   const handleLogin = async () => {
     try {
       const userSnapshot = await signInWithEmailAndPassword(auth, email, password);
-      setUser(userSnapshot.user)
+
+      // Get user document from uid for points
+      const docRef = doc(db, "users", userSnapshot.user.uid);
+      const docSnap = await getDoc(docRef);
+
+      setUser({...userSnapshot.user, points: docSnap.data().points})
     } catch (error) {
       console.error('Error logging in:', error);
     }

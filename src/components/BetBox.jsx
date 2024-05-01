@@ -4,7 +4,7 @@ import { db } from '../firebase';
 import { doc, updateDoc, setDoc, getDoc, increment, serverTimestamp, collection, query, where, getDocs } from "firebase/firestore";
 import Chart from './Chart';
 
-const BetBox = ({ id, question, timeLimit, user, yesNumber, noNumber }) => {
+const BetBox = ({ id, question, endDate, user, yesNumber, noNumber }) => {
   const [betPlaced, setBetPlaced] = useState(false);
   const [surveyResponses, setSurveyResponses] = useState({}); // State to store survey responses
 
@@ -98,7 +98,7 @@ const BetBox = ({ id, question, timeLimit, user, yesNumber, noNumber }) => {
         <Col xs={6}>
           <div style={{ textAlign: 'left' }}>
             <h2>{question}</h2>
-            <p>Bet ends: {timeLimit}</p>
+            <p>Bet ends: {endDate.toDate().toDateString()}</p>
           </div>
         </Col>
         <Col xs={6}>

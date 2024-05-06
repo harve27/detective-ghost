@@ -21,21 +21,23 @@ export default function HomePage({ user }) {
         fetchBets();
     
         return () => {}; // No cleanup needed
-      }, []);
+    }, []);
 
     return (
         <div>
             {/** Don't show bet if it isn't active */}
             {bets.map(bet => (
-                <BetBox
-                key={bet.id}
-                id={bet.id}
-                question={bet.question}
-                endDate={bet.closeDate}
-                user={user}
-                yesNumber={bet.yes}
-                noNumber={bet.no}
-                />
+                bet.isActive && (
+                  <BetBox
+                  key={bet.id}
+                  id={bet.id}
+                  question={bet.question}
+                  endDate={bet.closeDate}
+                  user={user}
+                  yesNumber={bet.yes}
+                  noNumber={bet.no}
+                  />
+                )
             ))}
         </div>
     )

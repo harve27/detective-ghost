@@ -90,7 +90,8 @@ const BetBox = ({ id, question, endDate, user, yesNumber, noNumber }) => {
       fetchSurveyResponses()
     }
     return () => {}
-  }, [betPlaced, id, surveyResponses, user.uid])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Container className="bet-box" style={{ backgroundColor: 'white', border: '2px solid black', padding: '20px', borderRadius: '10px', boxShadow: '0 12px 12px rgba(0,0,0,0.1)', marginBottom: '20px' }}>

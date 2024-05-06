@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { db } from '../firebase';
-import { doc, updateDoc, setDoc, getDoc, increment, serverTimestamp, collection, query, where, getDocs } from "firebase/firestore";
+import { doc, updateDoc, setDoc, increment, serverTimestamp, collection, query, where, getDocs } from "firebase/firestore";
 import Chart from './Chart';
 
 const BetBox = ({ id, question, endDate, user, yesNumber, noNumber }) => {
   const [betPlaced, setBetPlaced] = useState(false);
-  const [surveyResponses, setSurveyResponses] = useState({}); // State to store survey responses
 
   const handleYesClick = async () => {
     try {
@@ -56,24 +55,6 @@ const BetBox = ({ id, question, endDate, user, yesNumber, noNumber }) => {
 
   // Check if current bet has already been placed
   useEffect(() => {
-    const fetchSurveyResponses = async () => {
-      try {
-        // Query to fetch survey responses based on bet id
-        const betRef = doc(db, "betBox", id)
-        const betSnap = await getDoc(betRef)
-
-        // Initialize response object
-        const responses = {
-          'Yes': betSnap.data().yes,
-          'No': betSnap.data().no
-        };
-
-        // Set survey responses
-        setSurveyResponses(responses);
-      } catch (err) {
-        console.error('Error fetching survey responses:', err);
-      }
-    };
     
     const checkBetPlaced = async () => {
       try {
@@ -86,9 +67,6 @@ const BetBox = ({ id, question, endDate, user, yesNumber, noNumber }) => {
     }
 
     checkBetPlaced()
-    if (betPlaced) {
-      fetchSurveyResponses()
-    }
     return () => {}
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

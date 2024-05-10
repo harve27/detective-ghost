@@ -6,6 +6,8 @@ import Chart from './Chart';
 
 const BetBox = ({ id, question, endDate, user, yesNumber, noNumber }) => {
   const [betPlaced, setBetPlaced] = useState(false);
+  const [yesNum, setYesNum] = useState(yesNumber);
+  const [noNum, setNoNum] = useState(noNumber)
 
   const handleYesClick = async () => {
     try {
@@ -25,6 +27,7 @@ const BetBox = ({ id, question, endDate, user, yesNumber, noNumber }) => {
       });
       
       setBetPlaced(true);
+      setYesNum(yesNum + 1);
     } catch (error) {
       console.error("Error updating document:", error);
     }
@@ -48,6 +51,7 @@ const BetBox = ({ id, question, endDate, user, yesNumber, noNumber }) => {
       });
 
       setBetPlaced(true);
+      setNoNum(noNum+1)
     } catch (error) {
       console.error("Error updating document:", error);
     }
@@ -93,7 +97,7 @@ const BetBox = ({ id, question, endDate, user, yesNumber, noNumber }) => {
           ) : (
             <>
               <p>Bet has been placed!</p>
-              <Chart yesNumber={yesNumber} noNumber={noNumber}/>
+              <Chart yesNumber={yesNum} noNumber={noNum}/>
             </>
           )}
         </Col>
